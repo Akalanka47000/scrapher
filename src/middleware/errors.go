@@ -38,7 +38,7 @@ func StackTraceHandler(ctx *fiber.Ctx, err any) {
 	if _, ok := err.(*fiber.Error); ok {
 		return
 	}
-	if _, ok := err.(*global.ExtendedFiberError); !ok {
+	if _, ok := err.(*global.ExtendedFiberError); ok {
 		return
 	}
 	log.Errorw(lo.Cast[error](err).Error(), "stacktrace", string(debug.Stack()))

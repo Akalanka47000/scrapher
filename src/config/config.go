@@ -10,6 +10,7 @@ type Config struct {
 	Port            int    `mapstructure:"PORT"`
 	Host            string `mapstructure:"HOST"`
 	FrontendBaseUrl string `mapstructure:"FRONTEND_BASE_URL" validate:"url"`
+	ChromePath      string `mapstructure:"CHROME_PATH" validate:"required"` // Path to the Chrome executable
 }
 
 var Env *Config
