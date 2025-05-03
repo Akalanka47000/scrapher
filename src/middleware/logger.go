@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"os"
 	"scrapher/src/global"
 
 	"github.com/gofiber/contrib/fiberzap/v2"
@@ -28,6 +29,8 @@ func Zapped(c *fiber.Ctx) error {
 		},
 	}))
 
+	c.Append(global.HdrXHostname, lo.Ok(os.Hostname()))
+
 	return fiberzap.New(fiberzap.Config{
 		Logger: logger,
 		FieldsFunc: func(c *fiber.Ctx) []zap.Field {
@@ -35,7 +38,6 @@ func Zapped(c *fiber.Ctx) error {
 			return append(
 				getLogFields(c),
 				zap.Any("user-agent", lo.FirstOrEmpty(headers[global.HdrUserAgent])),
-				zap.Any("remote-ip", lo.FirstOrEmpty(headers[global.HdrXForwardedFor])),
 			)
 		},
 	})(c)

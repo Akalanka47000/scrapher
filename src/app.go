@@ -18,7 +18,7 @@ import (
 	"go.uber.org/zap"
 )
 
-var service = "Todo Service"
+var service = "Scrapher Service"
 
 // Initializes the Fiber application with middleware, routes, and database connection.
 func bootstrapApp() *fiber.App {
@@ -48,6 +48,8 @@ func bootstrapApp() *fiber.App {
 	}))
 
 	app.Use(middleware.Zapped)
+
+	app.Use(middleware.ResponseInterceptors...)
 
 	app.Use(limiter.New(limiter.Config{
 		Max: 100,

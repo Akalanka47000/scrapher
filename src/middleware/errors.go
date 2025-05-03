@@ -2,10 +2,8 @@ package middleware
 
 import (
 	"errors"
-	"scrapher/src/global"
-
 	"github.com/gofiber/fiber/v2"
-	"go.mongodb.org/mongo-driver/mongo"
+	"scrapher/src/global"
 )
 
 func ErrorHandler(ctx *fiber.Ctx, err error) error {
@@ -16,11 +14,7 @@ func ErrorHandler(ctx *fiber.Ctx, err error) error {
 		code = e.Code
 		message = e.Message
 	}
-	if mongo.IsDuplicateKeyError(err) {
-		code = fiber.StatusBadRequest
-		message = "Resource already exists"
-	}
-	return ctx.Status(code).JSON(global.Response[*interface{}]{
+	return ctx.Status(code).JSON(global.Response[any]{
 		Message: message,
 	})
 }
