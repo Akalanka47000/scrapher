@@ -7,6 +7,25 @@
 	},
 	"item": [
 		{
+			"name": "Analysis",
+			"item": [
+				{
+					"name": "Perform Analysis",
+					"id": "9aeedae0-b5b1-476e-9e16-c05ae8d308d5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"description": "Simplest of an analysis request which runs on a target website given it's url. Returns a bunch of metadata associated with it as well as some useful counts"
+					},
+					"response": []
+				}
+			],
+			"id": "d7200594-0657-43e0-891e-50bd14ba3c85"
+		},
+		{
 			"name": "System",
 			"item": [
 				{
