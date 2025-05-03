@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"os"
 	"scrapher/src/global"
 
 	"github.com/gofiber/contrib/fiberzap/v2"
@@ -28,8 +27,6 @@ func Zapped(c *fiber.Ctx) error {
 			zap.Fields(getLogFields(c)...),
 		},
 	}))
-
-	c.Append(global.HdrXHostname, lo.Ok(os.Hostname()))
 
 	return fiberzap.New(fiberzap.Config{
 		Logger: logger,

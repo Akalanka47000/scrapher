@@ -8,14 +8,12 @@ import (
 	"scrapher/src/modules"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/log"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/helmet"
 	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/fiber/v2/middleware/monitor"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gofiber/fiber/v2/middleware/requestid"
-	"go.uber.org/zap"
 )
 
 var service = "Scrapher Service"
@@ -23,17 +21,14 @@ var service = "Scrapher Service"
 // Initializes the Fiber application with middleware, routes, and database connection.
 func bootstrapApp() *fiber.App {
 	app := fiber.New(fiber.Config{
-		AppName:           service,
-		EnablePrintRoutes: true,
-		ErrorHandler:      middleware.ErrorHandler,
-		BodyLimit:         50 * 1024, // 50 KB, for now we don't need much since we are not sending large payloads
+		AppName:      service,
+		ErrorHandler: middleware.ErrorHandler,
+		BodyLimit:    50 * 1024, // 50 KB, for now we don't need much since we are not sending large payloads
 	})
 
 	app.Use(recover.New(recover.Config{
-		EnableStackTrace: true,
-		StackTraceHandler: func(c *fiber.Ctx, e any) {
-			log.Error(e, zap.Stack("stacktrace"))
-		},
+		EnableStackTrace:  true,
+		StackTraceHandler: middleware.StackTraceHandler,
 	}))
 
 	app.Use(cors.New(cors.Config{

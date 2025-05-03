@@ -10,8 +10,9 @@ import (
 func PerformAnalysis(c *fiber.Ctx) error {
 	payload := new(dto.PerformAnalysisRequest)
 	c.BodyParser(payload)
-	performAnalysis(c, payload.TargetURL)
-	return c.Status(fiber.StatusOK).JSON(global.Response[dto.PerformAnalysisResponse]{
+	result := performAnalysis(payload.TargetURL)
+	return c.Status(fiber.StatusOK).JSON(global.Response[dto.PerformAnalysisResult]{
+		Data:    &result,
 		Message: "Analysis completed",
 	})
 }
