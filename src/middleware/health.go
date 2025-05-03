@@ -34,7 +34,7 @@ func probeHandler(c *fiber.Ctx, checkFunctions map[string]func() bool) error {
 		wg.Add(1)
 		go func(check func() bool) {
 			defer wg.Done()
-			key := fmt.Sprintf("%s_check", k)
+			key := k + "_check"
 			results[key] = check()
 			if !results[key] {
 				status = fiber.StatusServiceUnavailable

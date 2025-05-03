@@ -35,7 +35,7 @@ func Zelebrate[T any](segment ZelebrateSegment) func(*fiber.Ctx) error {
 		errs := validate.Struct(target)
 		if errs != nil {
 			reflectedTarget := reflect.TypeOf(target).Elem()
-			for _, err := range errs.(validator.ValidationErrors) {
+			for _, err := range lo.Cast[validator.ValidationErrors](errs) {
 				field, ok := reflectedTarget.FieldByName(err.StructField())
 				if ok {
 					messages := field.Tag.Get("messages")

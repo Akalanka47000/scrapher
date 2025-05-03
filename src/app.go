@@ -26,7 +26,7 @@ func bootstrapApp() *fiber.App {
 		AppName:           service,
 		EnablePrintRoutes: true,
 		ErrorHandler:      middleware.ErrorHandler,
-		BodyLimit:         50 * 1024, // 50 KB, adjust as needed but for now we don't need much since we are not sending large payloads
+		BodyLimit:         50 * 1024, // 50 KB, for now we don't need much since we are not sending large payloads
 	})
 
 	app.Use(recover.New(recover.Config{
