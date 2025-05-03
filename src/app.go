@@ -50,7 +50,7 @@ func bootstrapApp() *fiber.App {
 
 	app.Use(middleware.Zapped)
 
-	app.Use(middleware.ResponseInterceptors...)
+	app.Use(middleware.Injectors...)
 
 	app.Use(limiter.New(limiter.Config{
 		Max: 100,
