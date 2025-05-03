@@ -10,7 +10,7 @@ import (
 func New() *fiber.App {
 	v1 := fiber.New()
 
-	v1.Post("/", m.Validate[dto.PerformAnalysisRequest](m.Body), PerformAnalysis)
+	v1.Post("/", m.Zelebrate[dto.PerformAnalysisRequest](m.ZelebrateSegmentBody), PerformAnalysis)
 
 	return v1
 }

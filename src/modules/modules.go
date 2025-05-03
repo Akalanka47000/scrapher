@@ -9,7 +9,7 @@ import (
 func New() *fiber.App {
 	modules := fiber.New()
 
-	modules.Mount("/analysis", analysis.New())
+	modules.Mount("/", analysis.New())
 
 	return modules
 }

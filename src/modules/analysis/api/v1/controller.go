@@ -11,7 +11,7 @@ func PerformAnalysis(c *fiber.Ctx) error {
 	payload := new(dto.PerformAnalysisRequest)
 	c.BodyParser(payload)
 	performAnalysis(c, payload.TargetURL)
-	return c.Status(fiber.StatusCreated).JSON(global.Response[dto.PerformAnalysisResponse]{
+	return c.Status(fiber.StatusOK).JSON(global.Response[dto.PerformAnalysisResponse]{
 		Message: "Analysis completed",
 	})
 }

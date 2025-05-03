@@ -5,7 +5,7 @@ import (
 	"scrapher/src/global"
 	"scrapher/src/middleware"
 
-	// "scrapher/src/modules"
+	"scrapher/src/modules"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/log"
@@ -26,6 +26,7 @@ func bootstrapApp() *fiber.App {
 		AppName:           service,
 		EnablePrintRoutes: true,
 		ErrorHandler:      middleware.ErrorHandler,
+		BodyLimit:         50 * 1024, // 50 KB, adjust as needed but for now we don't need much since we are not sending large payloads
 	})
 
 	app.Use(recover.New(recover.Config{
@@ -67,7 +68,7 @@ func bootstrapApp() *fiber.App {
 
 	app.Get("/metrics", monitor.New())
 
-	// app.Mount("/api", modules.New())
+	app.Mount("/api", modules.New())
 
 	return app
 }

@@ -1,0 +1,68 @@
+package middleware
+
+import (
+	"fmt"
+	"reflect"
+	"strings"
+
+	"github.com/go-playground/validator/v10"
+	"github.com/gofiber/fiber/v2"
+	"github.com/samber/lo"
+)
+
+var validate = validator.New()
+
+type ZelebrateSegment string
+
+const (
+	ZelebrateSegmentBody   ZelebrateSegment = "body"
+	ZelebrateSegmentParams ZelebrateSegment = "params"
+	ZelebrateSegmentQuery  ZelebrateSegment = "query"
+)
+
+func Zelebrate[T any](segment ZelebrateSegment) func(*fiber.Ctx) error {
+	return func(ctx *fiber.Ctx) error {
+		target := new(T)
+		switch segment {
+		case ZelebrateSegmentBody:
+			ctx.BodyParser(target)
+		case ZelebrateSegmentParams:
+			ctx.ParamsParser(target)
+		case ZelebrateSegmentQuery:
+			ctx.QueryParser(target)
+		}
+		firstFormattedErr := ""
+		errs := validate.Struct(target)
+		if errs != nil {
+			reflectedTarget := reflect.TypeOf(target).Elem()
+			for _, err := range errs.(validator.ValidationErrors) {
+				field, ok := reflectedTarget.FieldByName(err.StructField())
+				if ok {
+					messages := field.Tag.Get("messages")
+					for message := range strings.SplitSeq(messages, ",") {
+						messageSlice := strings.Split(message, "=")
+						if len(messageSlice) == 2 && messageSlice[0] == err.Tag() {
+							firstFormattedErr = messageSlice[1]
+							break
+						}
+					}
+					if firstFormattedErr == "" && messages != "" {
+						firstFormattedErr = messages
+					}
+					if firstFormattedErr != "" {
+						firstFormattedErr = fmt.Sprintf("%s @ path -> `%s`",
+							firstFormattedErr, lo.CoalesceOrEmpty(field.Tag.Get("json"), err.Field()))
+					}
+				}
+				if firstFormattedErr == "" {
+					firstFormattedErr = fmt.Sprintf("%s failed on the '%s' tag against value '%s'",
+						err.Field(), err.Tag(), err.Value())
+				}
+			}
+		}
+		if firstFormattedErr != "" {
+			panic(fiber.NewError(fiber.StatusUnprocessableEntity, firstFormattedErr))
+		}
+		return ctx.Next()
+	}
+}
