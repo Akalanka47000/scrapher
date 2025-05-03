@@ -2,13 +2,16 @@
 
 Go service for the Scrapher web application. 
 
-## [API Documentation]()
+## [API Documentation](https://documenter.getpostman.com/view/32343835/2sB2j4grCE)
 
 ## Prerequisites
-
- - [Air](https://github.com/cosmtrek/air) - For live reloading
+ - [Node](https://nodejs.org/en/) - If you want to make use of commitlint (optional)
 
 ## Getting started
 
-- Run `make install` to download all dependencies
-- Run `make dev` to start the development server with hot reloading
+- Run `make install` to download all dependencies and install the required tools. This is required only once. Afterwards you could use the traditional `go mod tidy` for dependency management.
+- Run `make dev` to start the development server with hot reloading (using Air).
+- Run `make test` to run the tests.
+- Run `make test-coverage` to run the tests and generate a coverage report.
+- Run `make lint` to run the linter.
+- Run `make build` to build the application.
