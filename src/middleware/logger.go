@@ -37,5 +37,20 @@ func Zapped(c *fiber.Ctx) error {
 				zap.Any("user-agent", lo.FirstOrEmpty(headers[global.HdrUserAgent])),
 			)
 		},
+		Messages: []string{"Server error", "Client error", "Request completed"},
 	})(c)
+}
+
+// fiberzapPostRecoveryLog is a temporary solution invoked at the default `errorHandler`
+// to log the status of failed http requests since the panic + recover flow we use
+// doesn't trigger the fiberzap logger on request completion.
+func fiberzapPostRecoveryLog(c *fiber.Ctx) {
+	headers := c.GetReqHeaders()
+	log.Errorw("Request failed",
+		"ip", c.IP(),
+		"status", c.Response().StatusCode(),
+		"method", c.Method(),
+		"url", c.OriginalURL(),
+		"user-agent", lo.FirstOrEmpty(headers[global.HdrUserAgent]),
+	)
 }

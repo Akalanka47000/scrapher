@@ -24,10 +24,14 @@ func ErrorHandler(ctx *fiber.Ctx, err error) error {
 		message = ee.BaseError.Message
 		errorDetail = &ee.Detail
 	}
-	return ctx.Status(code).JSON(global.Response[any]{
+	err = ctx.Status(code).JSON(global.Response[any]{
 		Message: message,
 		Error:   errorDetail,
 	})
+
+	fiberzapPostRecoveryLog(ctx)
+
+	return err
 }
 
 func StackTraceHandler(ctx *fiber.Ctx, err any) {

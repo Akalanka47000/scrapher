@@ -15,11 +15,14 @@ var validate = validator.New()
 type ZelebrateSegment string
 
 const (
-	ZelebrateSegmentBody   ZelebrateSegment = "body"
-	ZelebrateSegmentParams ZelebrateSegment = "params"
-	ZelebrateSegmentQuery  ZelebrateSegment = "query"
+	ZelebrateSegmentBody    ZelebrateSegment = "body"
+	ZelebrateSegmentParams  ZelebrateSegment = "params"
+	ZelebrateSegmentQuery   ZelebrateSegment = "query"
+	ZelebrateSegmentHeaders ZelebrateSegment = "headers"
 )
 
+// Zelebrate is a middleware function that validates one of the body, params, or query of the request
+// against the given struct type T.
 func Zelebrate[T any](segment ZelebrateSegment) func(*fiber.Ctx) error {
 	return func(ctx *fiber.Ctx) error {
 		target := new(T)
@@ -30,6 +33,8 @@ func Zelebrate[T any](segment ZelebrateSegment) func(*fiber.Ctx) error {
 			ctx.ParamsParser(target)
 		case ZelebrateSegmentQuery:
 			ctx.QueryParser(target)
+		case ZelebrateSegmentHeaders:
+			target = lo.ToPtr(lo.CastJSON[T](ctx.GetReqHeaders()))
 		}
 		firstFormattedErr := ""
 		errs := validate.Struct(target)
