@@ -57,7 +57,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"target_url\": \"https://abc\"\n}",
+							"raw": "{\n    \"target_url\": \"https://go-rod.github.io/#/javascript-runtime\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
