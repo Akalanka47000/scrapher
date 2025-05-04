@@ -34,6 +34,7 @@ func Zapped(c *fiber.Ctx) error {
 			headers := c.GetReqHeaders()
 			return append(
 				getLogFields(c),
+				zap.String("payload", string(c.Body())),
 				zap.Any("user-agent", lo.FirstOrEmpty(headers[global.HdrUserAgent])),
 			)
 		},
@@ -52,5 +53,6 @@ func fiberzapPostRecoveryLog(c *fiber.Ctx) {
 		"method", c.Method(),
 		"url", c.OriginalURL(),
 		"user-agent", lo.FirstOrEmpty(headers[global.HdrUserAgent]),
+		"payload", string(c.Body()),
 	)
 }

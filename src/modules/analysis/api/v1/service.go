@@ -53,7 +53,7 @@ func performAnalysis(targetUrl string) dto.PerformAnalysisResult {
 						}
 
 						page, err := pp.Get(func() (*rod.Page, error) {
-							return b.MustIncognito().Page(proto.TargetCreateTarget{URL: href})
+							return b.Page(proto.TargetCreateTarget{URL: href})
 						})
 
 						if err == nil {

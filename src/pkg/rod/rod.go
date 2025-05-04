@@ -14,10 +14,21 @@ import (
 	"github.com/gofiber/fiber/v2/log"
 )
 
-// NewHeadlessBrowser creates a new headless browser instance using the Rod library.
-func NewHeadlessBrowser() *rod.Browser {
+var browser *rod.Browser
+
+// GetHeadlessBrowser creates and returns new headless browser instance using the Rod library if it doesn't already exist.
+func GetHeadlessBrowser() *rod.Browser {
+	if browser != nil {
+		return browser
+	}
 	u := launcher.New().Bin(config.Env.ChromePath).Headless(true).MustLaunch()
-	return rod.New().ControlURL(u)
+	browser := rod.New().ControlURL(u).MustConnect()
+	global.RegisterShutdownHook("rod-browser-close", func() {
+		if browser != nil {
+			browser.MustClose()
+		}
+	})
+	return browser
 }
 
 // NewHeadlessBrowserSession creates a new headless browser session and executes the provided handler function.
@@ -25,10 +36,7 @@ func NewHeadlessBrowser() *rod.Browser {
 // The handler function receives a pointer to the rod.Browser and a pointer to an ExtendedPage.
 // The function returns the result of the handler function.
 func NewHeadlessBrowserSession[T any](handler func(*rod.Browser, *ExtendedPage) T, initialURL string) T {
-	browser := NewHeadlessBrowser()
-
-	browser.MustConnect()
-	defer browser.MustClose()
+	browser := GetHeadlessBrowser()
 
 	log.Infow("Visiting target", "url", initialURL)
 

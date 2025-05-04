@@ -5,6 +5,7 @@ import (
 	"os"
 	"os/signal"
 	"scrapher/src/config"
+	"scrapher/src/global"
 	"syscall"
 	"time"
 
@@ -36,4 +37,6 @@ func main() {
 	log.Info("Server shutdown complete. Exiting after 10 seconds")
 
 	time.Sleep(10 * time.Second)
+
+	global.ExecuteShutdownHooks()
 }
