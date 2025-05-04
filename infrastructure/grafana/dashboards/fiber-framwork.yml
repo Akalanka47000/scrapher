@@ -1,0 +1,10 @@
+# ./grafana/provisioning/dashboards/dashboard.yaml
+apiVersion: 1
+
+providers:
+  - name: 'fiber dashboards'
+    orgId: 1
+    folder: 'Fiber Framework Processes'
+    type: file
+    options:
+      path: /etc/grafana/provisioning/dashboards

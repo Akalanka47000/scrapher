@@ -75,6 +75,7 @@ services:
     volumes:
       - grafana-storage:/var/lib/grafana
       - ./grafana/datasources:/etc/grafana/provisioning/datasources
+      - ./grafana/dashboards:/etc/grafana/provisioning/dashboards
 
 networks:
   app-network:
