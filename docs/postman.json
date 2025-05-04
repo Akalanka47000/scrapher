@@ -489,6 +489,20 @@
 						"description": "Checks if the server is ready to accept new connections just after startup"
 					},
 					"response": []
+				},
+				{
+					"name": "Metrics",
+					"id": "9d583cf6-8025-4a08-88da-66fa41b2df01",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/system/metrics",
+						"description": "Retrives metrics which is read by prometheus. This is a protected endpoint which you must send a **service request key** within headers to access"
+					},
+					"response": []
 				}
 			],
 			"id": "f2de30a8-8e8c-46d7-860b-dded767ef2f2",
