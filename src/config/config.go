@@ -9,10 +9,11 @@ import (
 )
 
 type Config struct {
-	Port            int    `mapstructure:"PORT"`
-	Host            string `mapstructure:"HOST"`
-	FrontendBaseUrl string `mapstructure:"FRONTEND_BASE_URL" validate:"url"`
-	ChromePath      string `mapstructure:"CHROME_PATH" validate:"required"` // Path to the Chrome executable
+	Port              int    `mapstructure:"PORT"`
+	Host              string `mapstructure:"HOST"`
+	FrontendBaseUrl   string `mapstructure:"FRONTEND_BASE_URL" validate:"url"`
+	ChromePath        string `mapstructure:"CHROME_PATH" validate:"required"`         // Path to the Chrome executable
+	ServiceRequestKey string `mapstructure:"SERVICE_REQUEST_KEY" validate:"required"` // Key to authenticate internal requests
 }
 
 var Env *Config

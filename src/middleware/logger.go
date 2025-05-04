@@ -16,6 +16,15 @@ func getLogFields(c *fiber.Ctx) []zap.Field {
 	}
 }
 
+// List of paths which will be ignored by the logger.
+var ZapWhitelists = []string{
+	"/system/health",
+	"/system/liveness",
+	"/system/readiness",
+	"/system/metrics",
+	"/.well-known/appspecific/com.chrome.devtools.json",
+}
+
 // Zapped is a middleware that overrides the default logger with zapcore and sets up an http request logger.
 // The logs are populated with the correlation ID associated with the request.
 func Zapped(c *fiber.Ctx) error {
@@ -38,6 +47,7 @@ func Zapped(c *fiber.Ctx) error {
 				zap.Any("user-agent", lo.FirstOrEmpty(headers[global.HdrUserAgent])),
 			)
 		},
+		SkipURIs: ZapWhitelists,
 		Messages: []string{"Server error", "Client error", "Request completed"},
 	})(c)
 }
