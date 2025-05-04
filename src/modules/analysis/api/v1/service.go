@@ -13,9 +13,9 @@ import (
 	"github.com/samber/lo"
 )
 
-func performAnalysis(targetUrl string) dto.PerformAnalysisResult {
+func analyseWebPage(targetUrl string) dto.AnalyseWebpageResult {
 	return rodext.NewHeadlessBrowserSession(
-		func(b *rod.Browser, p *rodext.ExtendedPage) (result dto.PerformAnalysisResult) {
+		func(b *rod.Browser, p *rodext.ExtendedPage) (result dto.AnalyseWebpageResult) {
 			result.HTMLVersion = p.HTMLVersion()
 			result.PageTitle = p.MustInfo().Title
 			result.HeadingCounts.H1 = p.ElementCount("h1")

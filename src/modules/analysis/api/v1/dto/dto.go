@@ -1,10 +1,10 @@
 package dto
 
-type PerformAnalysisRequest struct {
-	TargetURL string `json:"target_url" validate:"required,url" messages:"Please provide a valid target URL"`
+type AnalyseWebpageRequest struct {
+	URL string `json:"url" validate:"required,url" messages:"Please provide a valid url to analyse"`
 }
 
-type PerformAnalysisResult struct {
+type AnalyseWebpageResult struct {
 	HTMLVersion   string `json:"html_version"`
 	PageTitle     string `json:"page_title"`
 	HeadingCounts struct {

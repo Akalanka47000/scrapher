@@ -38,7 +38,7 @@ func GetHeadlessBrowser() *rod.Browser {
 func NewHeadlessBrowserSession[T any](handler func(*rod.Browser, *ExtendedPage) T, initialURL string) T {
 	browser := GetHeadlessBrowser()
 
-	log.Infow("Visiting target", "url", initialURL)
+	log.Infow("Visiting page", "url", initialURL)
 
 	var e proto.NetworkResponseReceived
 
@@ -51,7 +51,7 @@ func NewHeadlessBrowserSession[T any](handler func(*rod.Browser, *ExtendedPage) 
 	if err != nil {
 		log.Errorw("Failed to retrieve webpage", "error", err)
 		panic(global.NewExtendedFiberError(
-			fiber.NewError(http.StatusUnprocessableEntity, ErrFailedToAnalyzeTargetURL),
+			fiber.NewError(http.StatusUnprocessableEntity, ErrFailedToAnalyzeWebpage),
 			RodErrorDetail{
 				TargetDetail: ErrDetailConnectionError,
 			},
@@ -67,7 +67,7 @@ func NewHeadlessBrowserSession[T any](handler func(*rod.Browser, *ExtendedPage) 
 	if !strings.Contains(contentType, "text/html") {
 		log.Errorw("Invalid content type", "content-type", contentType)
 		panic(global.NewExtendedFiberError(
-			fiber.NewError(http.StatusUnprocessableEntity, ErrFailedToAnalyzeTargetURL),
+			fiber.NewError(http.StatusUnprocessableEntity, ErrFailedToAnalyzeWebpage),
 			RodErrorDetail{
 				TargetDetail: ErrDetailTargetUrlIsNotValidHTML,
 			},
@@ -77,7 +77,7 @@ func NewHeadlessBrowserSession[T any](handler func(*rod.Browser, *ExtendedPage) 
 	if e.Response.Status < 200 || e.Response.Status >= 300 {
 		log.Errorw("Invalid response status", "status", e.Response.Status)
 		panic(global.NewExtendedFiberError(
-			fiber.NewError(http.StatusUnprocessableEntity, ErrFailedToAnalyzeTargetURL),
+			fiber.NewError(http.StatusUnprocessableEntity, ErrFailedToAnalyzeWebpage),
 			RodErrorDetail{
 				TargetStatus: e.Response.Status,
 				TargetDetail: http.StatusText(e.Response.Status),

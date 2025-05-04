@@ -6,7 +6,7 @@ type CollyErrorDetail struct {
 }
 
 const (
-	ErrFailedToAnalyzeTargetURL = "Failed to analyze target URL"
+	ErrFailedToAnalyzeWebpage = "Failed to analyze webpage"
 )
 
 const (

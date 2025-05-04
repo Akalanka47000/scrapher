@@ -54,10 +54,6 @@ func Zelebrate[T any](segment ZelebrateSegment) func(*fiber.Ctx) error {
 					if firstFormattedErr == "" && messages != "" {
 						firstFormattedErr = messages
 					}
-					if firstFormattedErr != "" {
-						firstFormattedErr = fmt.Sprintf("%s @ path -> `%s`",
-							firstFormattedErr, lo.CoalesceOrEmpty(field.Tag.Get("json"), err.Field()))
-					}
 				}
 				if firstFormattedErr == "" {
 					firstFormattedErr = fmt.Sprintf("%s failed on the '%s' tag against value '%s'",

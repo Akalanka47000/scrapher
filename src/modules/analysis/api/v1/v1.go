@@ -10,7 +10,9 @@ import (
 func New() *fiber.App {
 	v1 := fiber.New()
 
-	v1.Post("/", m.Zelebrate[dto.PerformAnalysisRequest](m.ZelebrateSegmentBody), PerformAnalysis)
+	v1.Get("/webpage",
+		m.Zelebrate[dto.AnalyseWebpageRequest](m.ZelebrateSegmentQuery),
+		m.CacheSuccess, AnalyseWebpage)
 
 	return v1
 }

@@ -18,17 +18,17 @@ func NewCollector() *EnhancedCollector {
 	c := colly.NewCollector()
 
 	c.OnRequest(func(r *colly.Request) {
-		log.Infow("Visiting target", "url", r.URL.String())
+		log.Infow("Visiting webpage", "url", r.URL.String())
 	})
 
 	c.OnError(func(r *colly.Response, err error) {
-		log.Errorw("Error while scraping target url",
+		log.Errorw("Error while scraping webpage",
 			"url", r.Request.URL.String(),
 			"status_code", r.StatusCode,
 			"response", string(r.Body),
 		)
 		panic(global.NewExtendedFiberError(
-			fiber.NewError(http.StatusUnprocessableEntity, ErrFailedToAnalyzeTargetURL),
+			fiber.NewError(http.StatusUnprocessableEntity, ErrFailedToAnalyzeWebpage),
 			CollyErrorDetail{
 				TargetStatus: r.StatusCode,
 				TargetDetail: http.StatusText(r.StatusCode),
@@ -45,7 +45,7 @@ func (c *EnhancedCollector) Visit(url string) error {
 	if err != nil {
 		log.Error("Error connecting to target url: ", err)
 		panic(global.NewExtendedFiberError(
-			fiber.NewError(http.StatusUnprocessableEntity, ErrFailedToAnalyzeTargetURL),
+			fiber.NewError(http.StatusUnprocessableEntity, ErrFailedToAnalyzeWebpage),
 			CollyErrorDetail{
 				TargetDetail: "Connection error",
 			},
