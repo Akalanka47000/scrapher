@@ -36,7 +36,7 @@ func NewHeadlessBrowserSession[T any](handler func(*rod.Browser, *ExtendedPage) 
 
 	page := browser.MustPage("")
 
-	wait := page.WaitEvent(&e)
+	waitForDocumentDownload := page.WaitEvent(&e)
 
 	err := page.Navigate(initialURL)
 
@@ -50,7 +50,9 @@ func NewHeadlessBrowserSession[T any](handler func(*rod.Browser, *ExtendedPage) 
 		))
 	}
 
-	wait()
+	waitForDocumentDownload()
+
+	page.MustWaitStable()
 
 	contentType := e.Response.Headers[strings.ToLower(global.HdrContentType)].Str()
 

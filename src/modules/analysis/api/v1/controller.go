@@ -13,6 +13,6 @@ func PerformAnalysis(c *fiber.Ctx) error {
 	result := performAnalysis(payload.TargetURL)
 	return c.Status(fiber.StatusOK).JSON(global.Response[dto.PerformAnalysisResult]{
 		Data:    &result,
-		Message: "Analysis completed",
+		Message: "Analysis complete",
 	})
 }
