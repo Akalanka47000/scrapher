@@ -26,7 +26,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/api/v1/analysis/page?url=https://go-rod.github.io/%23/javascript-runtime",
+							"raw": "{{base_url}}/api/v1/analysis/webpage?url=https://go-rod.github.io/%23/javascript-runtime",
 							"host": [
 								"{{base_url}}"
 							],
@@ -34,7 +34,7 @@
 								"api",
 								"v1",
 								"analysis",
-								"page"
+								"webpage"
 							],
 							"query": [
 								{
