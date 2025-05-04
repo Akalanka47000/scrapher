@@ -53,7 +53,34 @@
 					"response": []
 				}
 			],
-			"id": "d7200594-0657-43e0-891e-50bd14ba3c85"
+			"id": "d7200594-0657-43e0-891e-50bd14ba3c85",
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "07b5b732-a522-4381-8433-2eecbbed8ab7",
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "8078300e-99eb-43c8-9f43-2c357874a6aa",
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
 		},
 		{
 			"name": "System",
