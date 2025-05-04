@@ -38,6 +38,36 @@
 						"description": "Simplest of an analysis request which runs on a target website given it's url. Returns a bunch of metadata associated with it as well as some useful counts"
 					},
 					"response": []
+				},
+				{
+					"name": "Perform Analysis Copy",
+					"id": "e3da91cc-05bf-41d6-8b40-bf55f282fe84",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "es",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"target_url\": \"https://abc\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/api/v1/analysis",
+						"description": "Simplest of an analysis request which runs on a target website given it's url. Returns a bunch of metadata associated with it as well as some useful counts"
+					},
+					"response": []
 				}
 			],
 			"id": "d7200594-0657-43e0-891e-50bd14ba3c85"
