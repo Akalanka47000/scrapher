@@ -19,6 +19,11 @@
 						"method": "GET",
 						"header": [
 							{
+								"key": "Cache-Control",
+								"value": "public",
+								"type": "text"
+							},
+							{
 								"key": "Accept-Language",
 								"value": "es",
 								"type": "text",
