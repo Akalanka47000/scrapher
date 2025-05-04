@@ -44,7 +44,8 @@
 							"query": [
 								{
 									"key": "url",
-									"value": "https://github.com"
+									"value": "https://github.com",
+									"description": "The target url of the webpage to analyse"
 								}
 							]
 						},
@@ -83,7 +84,8 @@
 									"query": [
 										{
 											"key": "url",
-											"value": "https://github.com"
+											"value": "https://github.com",
+											"description": "The target url of the webpage to analyse"
 										}
 									]
 								}
@@ -182,8 +184,8 @@
 							"body": "{\n    \"message\": \"Analysis complete\",\n    \"data\": {\n        \"html_version\": \"HTML5\",\n        \"page_title\": \"GitHub · Build and ship software on a single, collaborative platform · GitHub\",\n        \"heading_counts\": {\n            \"h1\": 4,\n            \"h2\": 11,\n            \"h3\": 19,\n            \"h4\": 0,\n            \"h5\": 0,\n            \"h6\": 0\n        },\n        \"internal_link_count\": 102,\n        \"external_link_count\": 36,\n        \"inaccessible_link_count\": 0,\n        \"contains_login_form\": false\n    }\n}"
 						},
 						{
-							"id": "6d54f335-0845-453d-a1f8-6a45f6a25695",
-							"name": "Connection error",
+							"id": "bc89c698-cf35-4d21-84ba-af81ccad7ce5",
+							"name": "Failure - Connection error",
 							"originalRequest": {
 								"method": "GET",
 								"header": [
@@ -213,7 +215,8 @@
 									"query": [
 										{
 											"key": "url",
-											"value": "https://githubbisnthere.com"
+											"value": "https://githubbisnthere.com",
+											"description": "The target url of the webpage to analyse"
 										}
 									]
 								}
@@ -294,6 +297,121 @@
 							"cookie": [],
 							"responseTime": null,
 							"body": "{\n    \"message\": \"Failed to analyze webpage\",\n    \"error\": {\n        \"target_detail\": \"Connection error, which most likely means that the target url is invalid\"\n    }\n}"
+						},
+						{
+							"id": "755491e6-1015-44cc-8063-7d72727b1757",
+							"name": "Failure - Non existant webpage",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cache-Control",
+										"value": "public",
+										"type": "text"
+									},
+									{
+										"key": "Accept-Language",
+										"value": "es",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/v1/analysis/webpage?url=https://github.com/somepath/which-is/not-there",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"analysis",
+										"webpage"
+									],
+									"query": [
+										{
+											"key": "url",
+											"value": "https://github.com/somepath/which-is/not-there",
+											"description": "The target url of the webpage to analyse"
+										}
+									]
+								}
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sun, 04 May 2025 11:17:34 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "97"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Xss-Protection",
+									"value": "0"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Cross-Origin-Embedder-Policy",
+									"value": "require-corp"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "X-Dns-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-Correlation-Id",
+									"value": "6eb598cc-4738-4a2c-8145-918d051e8062"
+								},
+								{
+									"key": "X-Hostname",
+									"value": "Akalankas-MacBook-Pro.local"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"message\": \"Failed to analyze webpage\",\n    \"error\": {\n        \"target_status\": 404,\n        \"target_detail\": \"Not Found\"\n    }\n}"
 						}
 					]
 				}
@@ -370,7 +488,8 @@
 					"response": []
 				}
 			],
-			"id": "f2de30a8-8e8c-46d7-860b-dded767ef2f2"
+			"id": "f2de30a8-8e8c-46d7-860b-dded767ef2f2",
+			"description": "System routes used for monitoring"
 		}
 	],
 	"event": [
