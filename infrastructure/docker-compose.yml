@@ -2,7 +2,8 @@ version: '3.8'
 
 services:
   client:
-    image: ghcr.io/akalanka47000/scrapher-client:53442e76492f25296b2d3eb36b57bc05f8916b73-1
+    image: ghcr.io/akalanka47000/scrapher-client:cdba1d8d216b30b985217d97328a604e4c39524b-1
+    container_name: client
     ports:
       - "5173:5173"
     depends_on:
@@ -12,11 +13,14 @@ services:
 
   server:
     build:
-      context: .
+      context: ../
+    container_name: server
     ports:
       - "8080:8080"
     environment:
       - SERVICE_REQUEST_KEY=dfd84657-7d87-415a-94dc-548c1e6141e1 # Sample key for ease of testing
+    labels:
+      loggable: "true"
     networks:
       - app-network
     logging:
@@ -24,9 +28,11 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+        tag: "{{.Name}}"
 
   prometheus:
     image: prom/prometheus
+    container_name: prometheus
     ports:
       - "9090:9090"
     volumes:
@@ -36,6 +42,7 @@ services:
 
   loki:
     image: grafana/loki:2.9.2
+    container_name: loki
     ports:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
@@ -44,24 +51,31 @@ services:
 
   promtail:
     image: grafana/promtail:2.9.2
+    container_name: promtail
     volumes:
-      - /var/log:/var/log
       - ./promtail.yml:/etc/promtail/config.yaml
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
-      - /etc/machine-id:/etc/machine-id:ro
+      - /var/run/docker.sock:/var/run/docker.sock
     command: -config.file=/etc/promtail/config.yaml
     networks:
       - app-network
 
   grafana:
     image: grafana/grafana
+    container_name: grafana
     ports:
       - "3000:3000"
     networks:
       - app-network
+    environment:
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
     volumes:
       - grafana-storage:/var/lib/grafana
+      - ./grafana/datasources:/etc/grafana/provisioning/datasources
 
 networks:
   app-network:
     driver: bridge
+
+volumes:
+  grafana-storage:

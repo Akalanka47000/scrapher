@@ -1,5 +1,5 @@
 build:
-	go build -a -o ./bin/server ./src
+	go build -o ./bin/server ./src
 dev:
 	air
 format:
@@ -22,5 +22,7 @@ install:
 		echo "\033[0;31mNode is not installed. Please install Node.js to use commitlint.\033[0m"
 	go mod tidy
 	@echo "\033[0;32mGo modules installed successfully.\033[0m"
-docker-compose:
-	docker-compose -f ./infrastructure/docker-compose.yml up
+sandbox:
+	docker compose -f ./infrastructure/docker-compose.yml up
+teardown:
+	docker compose -f ./infrastructure/docker-compose.yml down
