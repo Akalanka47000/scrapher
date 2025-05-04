@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  client:
+    image: ghcr.io/akalanka47000/scrapher-client:53442e76492f25296b2d3eb36b57bc05f8916b73-1
+    ports:
+      - "5173:5173"
+    depends_on:
+      - server
+    networks:
+      - app-network
+
+  server:
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    environment:
+      - SERVICE_REQUEST_KEY=dfd84657-7d87-415a-94dc-548c1e6141e1 # Sample key for ease of testing
+    networks:
+      - app-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - app-network
+
+  loki:
+    image: grafana/loki:2.9.2
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - app-network
+
+  promtail:
+    image: grafana/promtail:2.9.2
+    volumes:
+      - /var/log:/var/log
+      - ./promtail.yml:/etc/promtail/config.yaml
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /etc/machine-id:/etc/machine-id:ro
+    command: -config.file=/etc/promtail/config.yaml
+    networks:
+      - app-network
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    volumes:
+      - grafana-storage:/var/lib/grafana
+
+networks:
+  app-network:
+    driver: bridge

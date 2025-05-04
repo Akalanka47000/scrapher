@@ -1,0 +1,12 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'scrapher-service'
+    static_configs:
+      - targets: ['server:8080']
+        labels:
+          service: "Scrapher Service"
+    metrics_path: /system/metrics
+    params:
+      token: [dfd84657-7d87-415a-94dc-548c1e6141e1] # Sample key for ease of testing
