@@ -50,7 +50,252 @@
 						},
 						"description": "Simplest of an analysis request which runs on a target webpage given it's url. Returns a bunch of metadata associated with it as well as some useful counts"
 					},
-					"response": []
+					"response": [
+						{
+							"id": "373a756d-27c7-45b9-a7f1-139846512324",
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cache-Control",
+										"value": "public",
+										"type": "text"
+									},
+									{
+										"key": "Accept-Language",
+										"value": "es",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/v1/analysis/webpage?url=https://github.com",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"analysis",
+										"webpage"
+									],
+									"query": [
+										{
+											"key": "url",
+											"value": "https://github.com"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sun, 04 May 2025 11:14:51 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "328"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Xss-Protection",
+									"value": "0"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Cross-Origin-Embedder-Policy",
+									"value": "require-corp"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "X-Dns-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-Correlation-Id",
+									"value": "6cb598cc-4738-4a2c-8145-918d051e8062"
+								},
+								{
+									"key": "X-Hostname",
+									"value": "Akalankas-MacBook-Pro.local"
+								},
+								{
+									"key": "X-Cache",
+									"value": "miss"
+								},
+								{
+									"key": "X-Ratelimit-Limit",
+									"value": "100"
+								},
+								{
+									"key": "X-Ratelimit-Remaining",
+									"value": "99"
+								},
+								{
+									"key": "X-Ratelimit-Reset",
+									"value": "60"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"message\": \"Analysis complete\",\n    \"data\": {\n        \"html_version\": \"HTML5\",\n        \"page_title\": \"GitHub · Build and ship software on a single, collaborative platform · GitHub\",\n        \"heading_counts\": {\n            \"h1\": 4,\n            \"h2\": 11,\n            \"h3\": 19,\n            \"h4\": 0,\n            \"h5\": 0,\n            \"h6\": 0\n        },\n        \"internal_link_count\": 102,\n        \"external_link_count\": 36,\n        \"inaccessible_link_count\": 0,\n        \"contains_login_form\": false\n    }\n}"
+						},
+						{
+							"id": "6d54f335-0845-453d-a1f8-6a45f6a25695",
+							"name": "Connection error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cache-Control",
+										"value": "public",
+										"type": "text"
+									},
+									{
+										"key": "Accept-Language",
+										"value": "es",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/v1/analysis/webpage?url=https://githubbisnthere.com",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"analysis",
+										"webpage"
+									],
+									"query": [
+										{
+											"key": "url",
+											"value": "https://githubbisnthere.com"
+										}
+									]
+								}
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sun, 04 May 2025 11:15:43 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "140"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Xss-Protection",
+									"value": "0"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Cross-Origin-Embedder-Policy",
+									"value": "require-corp"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "X-Dns-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-Correlation-Id",
+									"value": "6db598cc-4738-4a2c-8145-918d051e8062"
+								},
+								{
+									"key": "X-Hostname",
+									"value": "Akalankas-MacBook-Pro.local"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"message\": \"Failed to analyze webpage\",\n    \"error\": {\n        \"target_detail\": \"Connection error, which most likely means that the target url is invalid\"\n    }\n}"
+						}
+					]
 				}
 			],
 			"id": "d7200594-0657-43e0-891e-50bd14ba3c85",
