@@ -4,7 +4,7 @@ apiVersion: 1
 providers:
   - name: 'fiber dashboards'
     orgId: 1
-    folder: 'Fiber Framework Processes'
+    disableDeletion: true
     type: file
     options:
       path: /etc/grafana/provisioning/dashboards
