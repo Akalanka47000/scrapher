@@ -60,7 +60,7 @@ func NewHeadlessBrowserSession[T any](handler func(*rod.Browser, *ExtendedPage) 
 
 	waitForDocumentDownload()
 
-	page.MustWaitStable()
+	page.MustWaitLoad()
 
 	contentType := e.Response.Headers[strings.ToLower(global.HdrContentType)].Str()
 
