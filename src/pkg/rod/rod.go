@@ -81,3 +81,15 @@ func NewHeadlessBrowserSession[T any](handler func(*rod.Browser, *ExtendedPage) 
 
 	return result
 }
+
+// Creates a new page pool with the specified limit and executes the provided function with it.
+// Cleans up the page pool after use.
+func RunWithNewPagePool(limit int, fn func(rod.Pool[rod.Page])) {
+	pp := rod.NewPagePool(limit)
+	defer pp.Cleanup(func(p *rod.Page) {
+		if err := p.Close(); err != nil {
+			log.Warnw("Error closing page", "error", err)
+		}
+	})
+	fn(pp)
+}

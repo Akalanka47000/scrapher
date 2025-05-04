@@ -27,45 +27,52 @@ func performAnalysis(targetUrl string) dto.PerformAnalysisResult {
 
 			result.ContainsLoginForm = p.ContainsLoginForm()
 
-			wg := sync.WaitGroup{}
+			analyzeLinks := func(pp rod.Pool[rod.Page]) {
+				wg := sync.WaitGroup{}
 
-			baseURL := lo.FromPtr(lo.Ok(url.Parse(p.MustInfo().URL)))
+				baseURL := lo.FromPtr(lo.Ok(url.Parse(p.MustInfo().URL)))
 
-			for _, a := range lo.Ok(p.Elements("a[href]")) {
-				wg.Add(1)
-				go func(a *rod.Element) {
-					defer wg.Done()
+				for _, a := range lo.Ok(p.Elements("a[href]")) {
+					wg.Add(1)
+					go func() {
+						defer wg.Done()
 
-					href := lo.Ok(a.Property("href")).String()
+						href := lo.Ok(a.Property("href")).String()
 
-					external, err := utils.IsExternalLink(href, baseURL)
+						external, err := utils.IsExternalLink(href, baseURL)
 
-					if err != nil {
-						result.InaccessibleLinkCount++
-					}
+						if err != nil {
+							result.InaccessibleLinkCount++
+						}
 
-					if external {
-						result.ExternalLinkCount++
-					} else {
-						result.InternalLinkCount++
-						href = baseURL.ResolveReference(lo.Ok(url.Parse(href))).String()
-					}
+						if external {
+							result.ExternalLinkCount++
+						} else {
+							result.InternalLinkCount++
+							href = baseURL.ResolveReference(lo.Ok(url.Parse(href))).String()
+						}
 
-					tab, err := b.Page(proto.TargetCreateTarget{URL: href, Background: true})
-					if err == nil {
-						err = tab.WaitLoad()
-					}
+						page, err := pp.Get(func() (*rod.Page, error) {
+							return b.MustIncognito().Page(proto.TargetCreateTarget{URL: href})
+						})
 
-					if err != nil {
-						log.Warnw("Error visiting link", "link", href, "error", err)
-						result.InaccessibleLinkCount++
-					}
+						if err == nil {
+							err = page.WaitLoad()
+						}
 
-					tab.Close()
-				}(a)
+						if err != nil {
+							log.Warnw("Error visiting link", "link", href, "error", err)
+							result.InaccessibleLinkCount++
+						}
+
+						pp.Put(page)
+					}()
+				}
+
+				wg.Wait()
 			}
 
-			wg.Wait()
+			rodext.RunWithNewPagePool(3, analyzeLinks)
 
 			return result
 		},
