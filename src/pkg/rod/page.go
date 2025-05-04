@@ -43,6 +43,6 @@ func (p ExtendedPage) ElementCount(selector string) int {
 func (p ExtendedPage) ContainsLoginForm() bool {
 	return p.MustEval(`() => [...document.forms].some(form => {
 		return [...form.elements].some(e => e.type === 'password') ||
-			/login|sign.?in|auth/i.test(form.outerHTML)
+			/login|sign.?in/i.test(form.outerHTML)
 	})`).Bool()
 }

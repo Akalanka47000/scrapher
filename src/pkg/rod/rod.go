@@ -16,7 +16,8 @@ import (
 
 var browser *rod.Browser
 
-// GetHeadlessBrowser creates and returns new headless browser instance using the Rod library if it doesn't already exist.
+// GetHeadlessBrowser creates and returns new headless browser instance using the Rod library
+// if it doesn't already exist.
 func GetHeadlessBrowser() *rod.Browser {
 	if browser != nil {
 		return browser

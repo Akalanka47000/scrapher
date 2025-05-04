@@ -3,22 +3,24 @@ linters:
   default: all
   disable:
     - cyclop
+    - depguard
     - errcheck
     - errorlint
     - exhaustruct
+    - funlen
     - gochecknoglobals
     - gocyclo
     - gocognit
     - gosec
     - gomoddirectives
-    - depguard
+    - ireturn
     - mnd
     - nestif
     - nlreturn
+    - nonamedreturns
     - revive
     - tagalign
     - tagliatelle
     - varnamelen
     - wrapcheck
     - wsl
-

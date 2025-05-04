@@ -1,5 +1,5 @@
 build:
-	go build -o ./bin/scrapher ./src
+	go build -a -o ./bin/server ./src
 dev:
 	air
 format:
