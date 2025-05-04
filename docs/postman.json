@@ -457,7 +457,8 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{base_url}}/system/health"
+						"url": "{{base_url}}/system/health",
+						"description": "Simple check which pings the server and sees if it's accepting new connections"
 					},
 					"response": []
 				},
@@ -470,7 +471,8 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{base_url}}/system/liveness"
+						"url": "{{base_url}}/system/liveness",
+						"description": "Checks if the server and all of it's components which required to function are healthy, not just if it can accept connections"
 					},
 					"response": []
 				},
@@ -483,13 +485,41 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{base_url}}/system/readiness"
+						"url": "{{base_url}}/system/readiness",
+						"description": "Checks if the server is ready to accept new connections just after startup"
 					},
 					"response": []
 				}
 			],
 			"id": "f2de30a8-8e8c-46d7-860b-dded767ef2f2",
-			"description": "System routes used for monitoring"
+			"description": "System routes used for monitoring",
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ea2c7638-e9b0-4c8d-aaf1-59dfe9da7f7e",
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "27689c7e-db31-462f-980c-4ed3002a82d8",
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
 		}
 	],
 	"event": [
