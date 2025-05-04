@@ -10,7 +10,7 @@
 			"name": "Analysis",
 			"item": [
 				{
-					"name": "Perform Analysis",
+					"name": "Analyze single webpage",
 					"id": "9aeedae0-b5b1-476e-9e16-c05ae8d308d5",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -26,24 +26,24 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/api/v1/analysis?target_url=https://go-rod.github.io/#/javascript-runtime",
+							"raw": "{{base_url}}/api/v1/analysis/page?url=https://go-rod.github.io/%23/javascript-runtime",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"analysis"
+								"analysis",
+								"page"
 							],
 							"query": [
 								{
-									"key": "target_url",
-									"value": "https://go-rod.github.io/"
+									"key": "url",
+									"value": "https://go-rod.github.io/%23/javascript-runtime"
 								}
-							],
-							"hash": "/javascript-runtime"
+							]
 						},
-						"description": "Simplest of an analysis request which runs on a target website given it's url. Returns a bunch of metadata associated with it as well as some useful counts"
+						"description": "Simplest of an analysis request which runs on a target webpage given it's url. Returns a bunch of metadata associated with it as well as some useful counts"
 					},
 					"response": []
 				}
