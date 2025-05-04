@@ -1,6 +1,8 @@
 package config
 
 import (
+	"reflect"
+
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2/log"
 	"github.com/spf13/viper"
@@ -26,11 +28,14 @@ func Load() {
 	viper.SetConfigName(".env")
 	viper.SetConfigType("env")
 
-	setDefaults()
-
 	if err := viper.ReadInConfig(); err != nil {
-		log.Fatal("Error reading env file", err)
+		typ := reflect.TypeOf(Env).Elem()
+		for i := range typ.NumField() {
+			viper.BindEnv(typ.Field(i).Tag.Get("mapstructure"))
+		}
 	}
+
+	setDefaults()
 
 	if err := viper.Unmarshal(&Env); err != nil {
 		log.Fatal(err)
