@@ -498,9 +498,15 @@
 					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "X-Service-Request-Key",
+								"value": "{{service_request_key}}",
+								"type": "text"
+							}
+						],
 						"url": "{{base_url}}/system/metrics",
-						"description": "Retrives metrics which is read by prometheus. This is a protected endpoint which you must send a **service request key** within headers to access"
+						"description": "Retrieves metrics which is read by prometheus. This is a protected endpoint which you must send a **service request key** within headers to access"
 					},
 					"response": []
 				}
