@@ -21,6 +21,7 @@ services:
       - SERVICE_REQUEST_KEY=dfd84657-7d87-415a-94dc-548c1e6141e1 # Sample key for ease of testing
     labels:
       loggable: "true"
+      service: "scrapher"
     networks:
       - app-network
     logging:
@@ -68,6 +69,8 @@ services:
     networks:
       - app-network
     environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
       - GF_AUTH_DISABLE_LOGIN_FORM=true
     volumes:
       - grafana-storage:/var/lib/grafana
