@@ -1,5 +1,7 @@
 build:
 	go build -o ./bin/server ./src
+start:
+	./bin/server
 dev:
 	air
 format:
