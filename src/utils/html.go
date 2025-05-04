@@ -11,8 +11,12 @@ func ExtractHTMLVersion(html string) string {
 		return "HTML5"
 	} else if strings.Contains(lowercaseHTML, "xhtml") {
 		return "XHTML"
-	} else if strings.Contains(lowercaseHTML, "transitional") {
+	} else if strings.Contains(lowercaseHTML, "html 4.01 transitional") {
 		return "HTML 4.01 Transitional"
+	} else if strings.Contains(lowercaseHTML, "html 4.01 strict") {
+		return "HTML 4.01 Strict"
+	} else if strings.Contains(lowercaseHTML, "html 4.01 frameset") {
+		return "HTML 4.01 Frameset"
 	}
 	return "Unknown"
 }
