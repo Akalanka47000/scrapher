@@ -16,7 +16,7 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [
 							{
 								"key": "Accept-Language",
@@ -25,16 +25,24 @@
 								"disabled": true
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    // \"target_url\": \"https://www.zenrows.com/123dsfsdfdsfg\"\n    // \"target_url\": \"https://api.github.com/repos/akalanka47000/boilerplate\"\n    // \"target_url\": \"https://playground-6d807.web.app\"\n    \"target_url\": \"https://go-rod.github.io/#/javascript-runtime\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						"url": {
+							"raw": "{{base_url}}/api/v1/analysis?target_url=https://go-rod.github.io/#/javascript-runtime",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"analysis"
+							],
+							"query": [
+								{
+									"key": "target_url",
+									"value": "https://go-rod.github.io/"
 								}
-							}
+							],
+							"hash": "/javascript-runtime"
 						},
-						"url": "{{base_url}}/api/v1/analysis",
 						"description": "Simplest of an analysis request which runs on a target website given it's url. Returns a bunch of metadata associated with it as well as some useful counts"
 					},
 					"response": []
