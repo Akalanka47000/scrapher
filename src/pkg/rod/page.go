@@ -1,4 +1,3 @@
-// This package creates a wrapper around Rod to make it easier to use.
 package rodext
 
 import (

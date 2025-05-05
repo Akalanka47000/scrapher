@@ -8,7 +8,6 @@ import (
 	"sync"
 
 	"github.com/go-rod/rod"
-	"github.com/go-rod/rod/lib/proto"
 	"github.com/gofiber/fiber/v2/log"
 	"github.com/samber/lo"
 )
@@ -52,9 +51,11 @@ func AnalyseWebPage(targetUrl string) dto.AnalyseWebpageResult {
 							href = baseURL.ResolveReference(lo.Ok(url.Parse(href))).String()
 						}
 
-						page, err := pp.Get(func() (*rod.Page, error) {
-							return b.Page(proto.TargetCreateTarget{URL: href})
+						page := pp.MustGet(func() *rod.Page {
+							return b.MustPage("")
 						})
+
+						err = page.Navigate(href)
 
 						if err == nil {
 							err = page.WaitLoad()
