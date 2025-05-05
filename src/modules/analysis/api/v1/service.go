@@ -31,7 +31,7 @@ func AnalyseWebPage(targetUrl string) dto.AnalyseWebpageResult {
 
 				baseURL := lo.FromPtr(lo.Ok(url.Parse(p.MustInfo().URL)))
 
-				for _, a := range lo.Ok(p.Elements("a[href]")) {
+				for _, a := range lo.Ok(p.Elements("a[href]:not([href^=\"mailto:\"]):not([href^=\"tel:\"])")) {
 					wg.Add(1)
 					go func() {
 						defer wg.Done()

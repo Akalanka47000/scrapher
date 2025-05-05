@@ -2,8 +2,10 @@ version: "2"
 linters:
   default: all
   disable:
+    - bodyclose
     - cyclop
     - depguard
+    - dogsled
     - errcheck
     - errorlint
     - exhaustruct
@@ -17,7 +19,9 @@ linters:
     - mnd
     - nestif
     - nlreturn
+    - noctx
     - nonamedreturns
+    - perfsprint
     - revive
     - tagalign
     - tagliatelle

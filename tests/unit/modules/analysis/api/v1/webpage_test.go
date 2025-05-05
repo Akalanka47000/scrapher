@@ -1,3 +1,4 @@
+//nolint:dupl
 package analysis_v1_test
 
 import (

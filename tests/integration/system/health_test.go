@@ -20,10 +20,12 @@ func TestSystemHealthHandler(t *testing.T) {
 	app := app.New()
 
 	Convey("returns ok", t, func() {
-		req, _ := http.NewRequest("GET", "/system/health", nil)
+		req, _ := http.NewRequest(http.MethodGet, "/system/health", nil)
 		res, err := app.Test(req, -1)
 
 		So(err, ShouldBeNil)
+
+		defer res.Body.Close()
 
 		So(res.StatusCode, ShouldEqual, http.StatusOK)
 

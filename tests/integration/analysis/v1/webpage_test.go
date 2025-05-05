@@ -28,12 +28,12 @@ func TestAnalyseWebpageHandler(t *testing.T) {
 
 	reqPath := "/api/v1/analysis/webpage"
 
-	ParallelConvey("succesful requests", t, func() {
+	ParallelConvey("successful requests", t, func() {
 		Convey("html version 5", func() {
 			server, address := tests.ServeDirectory("__mocks__/html/v5", 6700)
 			defer server.Shutdown(t.Context())
 
-			req, _ := http.NewRequest("GET", fmt.Sprintf("%s?url=%s", reqPath, url.QueryEscape(address)), nil)
+			req, _ := http.NewRequest(http.MethodGet, fmt.Sprintf("%s?url=%s", reqPath, url.QueryEscape(address)), nil)
 			res, err := app.Test(req, -1)
 
 			So(err, ShouldBeNil)
@@ -65,7 +65,7 @@ func TestAnalyseWebpageHandler(t *testing.T) {
 
 	ParallelConvey("failed requests", t, func() {
 		Convey("invalid url", func() {
-			req, _ := http.NewRequest("GET", fmt.Sprintf("%s?url=invalid-url", reqPath), nil)
+			req, _ := http.NewRequest(http.MethodGet, fmt.Sprintf("%s?url=invalid-url", reqPath), nil)
 			res, err := app.Test(req, -1)
 
 			So(err, ShouldBeNil)
@@ -77,7 +77,7 @@ func TestAnalyseWebpageHandler(t *testing.T) {
 			So(body.Message, ShouldEqual, "Please provide a valid url to analyse")
 		})
 		Convey("inaccessible url (invalid domain)", func() {
-			req, _ := http.NewRequest("GET", fmt.Sprintf("%s?url=http://invalid-domain", reqPath), nil)
+			req, _ := http.NewRequest(http.MethodGet, fmt.Sprintf("%s?url=http://invalid-domain", reqPath), nil)
 			res, err := app.Test(req, -1)
 
 			So(err, ShouldBeNil)
