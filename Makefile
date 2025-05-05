@@ -7,6 +7,8 @@ dev:
 format:
 	gofmt -w .
 test:
+	PARALLEL_CONVEY=false make test-lightspeed
+test-lightspeed:
 	go test -v --count=1 ./tests/...
 lint:
 	golangci-lint run ./...

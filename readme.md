@@ -14,7 +14,8 @@ Go service for the Scrapher web application.
 
 - Run `make install` to download all dependencies and install the required tools. This is required only once. Afterwards you could use the traditional `go mod tidy` for dependency management.
 - Run `make dev` to start a development server with hot reloading (using Air).
-- Run `make test` to run all tests and generate a test report.
+- Run `make test` to run all tests suites.
+- Run `make test-lightspeed` to run the same above tests cost faster at the cost of readability.
 - Run `make lint` to run the linter.
 - Run `make build` to build the application.
 - Run `make start` to start the built application (You need to run `make build` first).

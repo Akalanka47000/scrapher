@@ -2,6 +2,8 @@ github.com/Akalanka47000/lo v1.0.0 h1:zudVPn8PiW0c3Orl+RWD8vo/YTdFJ/Nmdm0//zaXTb
 github.com/Akalanka47000/lo v1.0.0/go.mod h1:FMG1Ls13gSw8wfPV9OozXV7mAHeLY4Eo4zFHQFTTJcU=
 github.com/PuerkitoBio/goquery v1.10.3 h1:pFYcNSqHxBD06Fpj/KsbStFRsgRATgnf3LeXiUkhzPo=
 github.com/PuerkitoBio/goquery v1.10.3/go.mod h1:tMUX0zDMHXYlAQk6p35XxQMqMweEKB7iK7iLNd4RH4Y=
+github.com/akalanka47000/go-modkit/parallel_convey v1.1.0 h1:iwkjnBNFWw71f3VBK+VvDIwQbJGvMN15VhMimAjygpc=
+github.com/akalanka47000/go-modkit/parallel_convey v1.1.0/go.mod h1:P/5Mq1tKcFDMUjtSXSJfmodMNe9hX0XJdOUslmsKcT0=
 github.com/akalanka47000/go-modkit/routing v1.0.1 h1:Ssnt5as7ryXxycHjiM13vlKK+/ZGd5mViipqbzSZ2zI=
 github.com/akalanka47000/go-modkit/routing v1.0.1/go.mod h1:FqwJ8xEzGP0wZ1rui0juWHY5HWXz3fOwnY8kxgBo5SE=
 github.com/andybalholm/brotli v1.1.1 h1:PR2pgnyFznKEugtsUo0xLdDop5SKXd5Qf5ysW+7XdTA=

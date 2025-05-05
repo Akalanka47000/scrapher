@@ -1,12 +1,12 @@
 package analysis_v1_test
 
 import (
+	"github.com/akalanka47000/go-modkit/parallel_convey"
+	. "github.com/smartystreets/goconvey/convey"
 	analysis "scrapher/src/modules/analysis/api/v1"
 	rodext "scrapher/src/pkg/rod"
 	"scrapher/tests"
 	"testing"
-
-	. "github.com/smartystreets/goconvey/convey"
 )
 
 func TestAnalyseWebpage(t *testing.T) {
@@ -14,8 +14,12 @@ func TestAnalyseWebpage(t *testing.T) {
 
 	tests.Setup()
 
-	Convey("existing webpages", t, func() {
-		Convey("html version 5", func() {
+	ParallelConvey, WaitL1 := pc.New(t)
+
+	ParallelConvey("existing webpages", t, func() {
+		ParallelConvey, WaitL2 := pc.New(t)
+
+		ParallelConvey("html version 5", func() {
 			server, address := tests.ServeDirectory("__mocks__/html/v5", 6600)
 			defer server.Shutdown(t.Context())
 
@@ -43,7 +47,7 @@ func TestAnalyseWebpage(t *testing.T) {
 				So(result.InaccessibleLinkCount, ShouldEqual, 1)
 			})
 		})
-		Convey("html version 4", func() {
+		ParallelConvey("html version 4", func() {
 			server, address := tests.ServeDirectory("__mocks__/html/v4", 6601)
 			defer server.Shutdown(t.Context())
 
@@ -71,9 +75,11 @@ func TestAnalyseWebpage(t *testing.T) {
 				So(result.InaccessibleLinkCount, ShouldEqual, 2)
 			})
 		})
+
+		WaitL2()
 	})
 
-	Convey("non-existing webpages", t, func() {
+	ParallelConvey("non-existing webpages", t, func() {
 		Convey("invalid url", func() {
 			So(func() {
 				analysis.AnalyseWebPage("htpss://invalid-url")
@@ -93,4 +99,6 @@ func TestAnalyseWebpage(t *testing.T) {
 			}, ShouldPanicWith, rodext.ErrTargetIsNotValidHTML)
 		})
 	})
+
+	WaitL1()
 }
