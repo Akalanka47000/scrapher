@@ -12,7 +12,7 @@ func New() *fiber.App {
 
 	v1.Get("/webpage",
 		m.Zelebrate[dto.AnalyseWebpageRequest](m.ZelebrateSegmentQuery),
-		m.CacheSuccess, AnalyseWebpage)
+		m.CacheSuccess, AnalyseWebpageHandler)
 
 	return v1
 }

@@ -1,7 +1,9 @@
 package config
 
 import (
+	"path/filepath"
 	"reflect"
+	"runtime"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2/log"
@@ -25,9 +27,11 @@ func setDefaults() {
 }
 
 func Load() {
-	viper.AddConfigPath(".")
 	viper.SetConfigName(".env")
 	viper.SetConfigType("env")
+
+	_, b, _, _ := runtime.Caller(0)
+	viper.AddConfigPath(filepath.Dir(b) + "/../..") // Set like this so it can be loaded by test suites as well
 
 	if err := viper.ReadInConfig(); err != nil {
 		typ := reflect.TypeOf(Env).Elem()

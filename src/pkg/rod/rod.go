@@ -12,6 +12,7 @@ import (
 	"github.com/go-rod/rod/lib/proto"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/log"
+	"github.com/samber/lo"
 )
 
 var browser *rod.Browser
@@ -63,7 +64,13 @@ func NewHeadlessBrowserSession[T any](handler func(*rod.Browser, *ExtendedPage) 
 
 	page.MustWaitLoad()
 
-	contentType := e.Response.Headers[strings.ToLower(global.HdrContentType)].Str()
+	var contentType string // Straightforward coalesce doesn't work here due to a bug in `proto.NetworkHeaders`
+
+	if val := e.Response.Headers[strings.ToLower(global.HdrContentType)].Raw(); val != nil {
+		contentType = lo.FromBytes[string](lo.Cast[[]byte](val))
+	} else if val := e.Response.Headers[global.HdrContentType].Raw(); val != nil {
+		contentType = lo.FromBytes[string](lo.Cast[[]byte](val))
+	}
 
 	if !strings.Contains(contentType, "text/html") {
 		log.Errorw("Invalid content type", "content-type", contentType)

@@ -13,7 +13,7 @@ import (
 	"github.com/samber/lo"
 )
 
-func analyseWebPage(targetUrl string) dto.AnalyseWebpageResult {
+func AnalyseWebPage(targetUrl string) dto.AnalyseWebpageResult {
 	return rodext.NewHeadlessBrowserSession(
 		func(b *rod.Browser, p *rodext.ExtendedPage) (result dto.AnalyseWebpageResult) {
 			result.HTMLVersion = p.HTMLVersion()

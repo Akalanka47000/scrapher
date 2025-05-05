@@ -9,10 +9,10 @@ import (
 	"github.com/samber/lo"
 )
 
-func AnalyseWebpage(c *fiber.Ctx) error {
+func AnalyseWebpageHandler(c *fiber.Ctx) error {
 	query := new(dto.AnalyseWebpageRequest)
 	c.QueryParser(query)
-	result := analyseWebPage(lo.Ok(url.QueryUnescape(query.URL)))
+	result := AnalyseWebPage(lo.Ok(url.QueryUnescape(query.URL)))
 	return c.Status(fiber.StatusOK).JSON(global.Response[dto.AnalyseWebpageResult]{
 		Data:    &result,
 		Message: "Analysis complete",

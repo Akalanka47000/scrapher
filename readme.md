@@ -5,9 +5,10 @@ Go service for the Scrapher web application.
 ## [API Documentation](https://documenter.getpostman.com/view/32343835/2sB2j4grCE)
 
 ## Prerequisites
- - [Node](https://nodejs.org/en) - If you want to make use of [commitlint](https://commitlint.js.org) (optional)
- - [Docker](https://www.docker.com/) - If you want to check out the complete setup with monitoring and logging (optional)
- 
+ - [Go 1.24](https://golang.org/dl) - The Go programming language
+ - [Chrome](https://www.google.com/chrome) - Used under the hood for headless browser automation by [go-rod](https://go-rod.github.io)
+ - [Node (optional)](https://nodejs.org/en) - If you want to make use of [commitlint](https://commitlint.js.org)
+ - [Docker (optional)](https://www.docker.com) - If you want to check out the complete setup with monitoring and logging 
 
 ## Getting started
 
@@ -17,6 +18,8 @@ Go service for the Scrapher web application.
 - Run `make lint` to run the linter.
 - Run `make build` to build the application.
 - Run `make start` to start the built application (You need to run `make build` first).
+
+#### Environment variables are loaded from the `.env` file. You can create one by copying the `.env.example` file. The server won't start if any of the required environment variables are not set or invalid, an error message will tell you more about it.
 
 # Full setup with client, monitoring and logging
 
@@ -66,12 +69,12 @@ Go service for the Scrapher web application.
 ## What's special about this project?
 
 This project is designed for scalability and performance. It incorporates a lot of best practices and patterns to ensure robustness and maintainability. Some of the key features include:
-- **Modular architecture which is useful when the API is growing and you need to add new features. Each module has its own API handlers, DTOs, and services**
+- **Modular architecture which is extremely useful when the API is growing and you need to add new features. Each module has its own API handlers, DTOs, and services**
 - **Structured logging with everything you need for traceability**
 - **An opinionated way of handling errors through the use of panics and a global error handler. Keeps the code extremely clean and readable**
 - **Proper health checks and graceful shutdown**
 - **DX focused enhanced request validation built on top of [go-playground/validator](https://github.com/go-playground/validator)**
-- **Custom middlware such as rate limiting, request logging, response and caching**
+- **Custom middlware such as rate limiting, request logging, and response caching**
 
 ## License
 
