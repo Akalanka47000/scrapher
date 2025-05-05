@@ -23,7 +23,7 @@ func GetHeadlessBrowser() *rod.Browser {
 	if browser != nil {
 		return browser
 	}
-	u := launcher.New().Bin(config.Env.ChromePath).Headless(true).MustLaunch()
+	u := launcher.New().Bin(config.Env.ChromePath).Headless(true).NoSandbox(config.Env.CI).MustLaunch()
 	browser := rod.New().ControlURL(u).MustConnect()
 	global.RegisterShutdownHook("rod-browser-close", func() {
 		if browser != nil {
