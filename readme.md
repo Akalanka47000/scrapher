@@ -78,6 +78,21 @@ This project is designed for scalability and performance. It incorporates a lot 
 - **DX focused enhanced request validation built on top of [go-playground/validator](https://github.com/go-playground/validator)**
 - **Custom middlware such as rate limiting, request logging, and response caching**
 
+## Screenshots
+
+
+<div style="display:flex;">
+ <img width="33%" alt="image" src="https://github.com/user-attachments/assets/0d46e2b8-7f53-4fe5-85c4-3677f16746e1" />
+ <img width="33%" alt="image" src="https://github.com/user-attachments/assets/36c3b560-86da-427b-bfe9-7ae56716b0e3" />
+ <img width="33%" alt="image" src="https://github.com/user-attachments/assets/8bb81aeb-5e6a-4d08-acbf-771d62e7d6fb" />
+</div>
+
+<div style="display:flex;">
+ <img width="49.5%" alt="image" src="https://github.com/user-attachments/assets/0a6104d0-c25f-427e-be51-54e8880aff47" />
+ <img width="49.5%" alt="image" src="https://github.com/user-attachments/assets/0351c9b4-7620-4aae-809b-f208ad7d7ff9" />
+</div>
+
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
