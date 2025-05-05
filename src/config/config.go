@@ -17,7 +17,7 @@ type Config struct {
 	FrontendBaseUrl   string `mapstructure:"FRONTEND_BASE_URL" validate:"url"`
 	ChromePath        string `mapstructure:"CHROME_PATH" validate:"required"`         // Path to the Chrome executable
 	ServiceRequestKey string `mapstructure:"SERVICE_REQUEST_KEY" validate:"required"` // Key to protect internal routes
-	CI                bool   `mapstructure:"CI"`                                      // Whether the application is running in a CI environment
+	CI                bool   `mapstructure:"CI"`
 }
 
 var Env *Config

@@ -26,7 +26,7 @@ jobs:
           run: go mod tidy
         
         - name: Run tests
-          run: make test-lightspeed
+          run: make test
           env:
             CHROME_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
             SERVICE_REQUEST_KEY: "dummy-key::use secret in production"
