@@ -2,6 +2,7 @@ package analysis_v1_test
 
 import (
 	analysis "scrapher/src/modules/analysis/api/v1"
+	rodext "scrapher/src/pkg/rod"
 	"scrapher/tests"
 	"testing"
 
@@ -69,6 +70,27 @@ func TestAnalyseWebpage(t *testing.T) {
 				So(result.ExternalLinkCount, ShouldEqual, 2)
 				So(result.InaccessibleLinkCount, ShouldEqual, 2)
 			})
+		})
+	})
+
+	Convey("non-existing webpages", t, func() {
+		Convey("invalid url", func() {
+			So(func() {
+				analysis.AnalyseWebPage("htpss://invalid-url")
+			}, ShouldPanicWith, rodext.ErrConnectionError)
+		})
+		Convey("invalid domain", func() {
+			So(func() {
+				analysis.AnalyseWebPage("https://domain-that-does-not-exist.scrapher.com")
+			}, ShouldPanicWith, rodext.ErrConnectionError)
+		})
+		Convey("invalid content type", func() {
+			server, address := tests.ServeDirectory("__mocks__/html/not-here", 6603)
+			defer server.Shutdown(t.Context())
+
+			So(func() {
+				analysis.AnalyseWebPage(address)
+			}, ShouldPanicWith, rodext.ErrTargetIsNotValidHTML)
 		})
 	})
 }

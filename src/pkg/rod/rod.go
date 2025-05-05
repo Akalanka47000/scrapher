@@ -52,12 +52,7 @@ func NewHeadlessBrowserSession[T any](handler func(*rod.Browser, *ExtendedPage) 
 
 	if err != nil {
 		log.Errorw("Failed to retrieve webpage", "error", err)
-		panic(global.NewExtendedFiberError(
-			fiber.NewError(http.StatusUnprocessableEntity, ErrFailedToAnalyzeWebpage),
-			RodErrorDetail{
-				TargetDetail: ErrDetailConnectionError,
-			},
-		))
+		panic(ErrConnectionError)
 	}
 
 	waitForDocumentDownload()
@@ -74,18 +69,13 @@ func NewHeadlessBrowserSession[T any](handler func(*rod.Browser, *ExtendedPage) 
 
 	if !strings.Contains(contentType, "text/html") {
 		log.Errorw("Invalid content type", "content-type", contentType)
-		panic(global.NewExtendedFiberError(
-			fiber.NewError(http.StatusUnprocessableEntity, ErrFailedToAnalyzeWebpage),
-			RodErrorDetail{
-				TargetDetail: ErrDetailTargetUrlIsNotValidHTML,
-			},
-		))
+		panic(ErrTargetIsNotValidHTML)
 	}
 
 	if e.Response.Status < 200 || e.Response.Status >= 300 {
 		log.Errorw("Invalid response status", "status", e.Response.Status)
 		panic(global.NewExtendedFiberError(
-			fiber.NewError(http.StatusUnprocessableEntity, ErrFailedToAnalyzeWebpage),
+			fiber.NewError(http.StatusUnprocessableEntity, ErrMsgFailedToAnalyzeWebpage),
 			RodErrorDetail{
 				TargetStatus: e.Response.Status,
 				TargetDetail: http.StatusText(e.Response.Status),
