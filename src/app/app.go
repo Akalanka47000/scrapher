@@ -1,4 +1,4 @@
-package main
+package app
 
 import (
 	"scrapher/src/config"
@@ -15,12 +15,12 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/requestid"
 )
 
-var service = "Scrapher Service"
+var ServiceName = "Scrapher Service"
 
-// Initializes the Fiber application with middleware, routes, and database connection.
-func bootstrapApp() *fiber.App {
+// Creates and returns a Fiber application with middleware, routes, and database connection.
+func New() *fiber.App {
 	app := fiber.New(fiber.Config{
-		AppName:      service,
+		AppName:      ServiceName,
 		ErrorHandler: middleware.ErrorHandler,
 		BodyLimit:    50 * 1024, // 50 KB, for now we don't need much since we are not sending large payloads
 	})
@@ -47,7 +47,7 @@ func bootstrapApp() *fiber.App {
 	app.Use(middleware.Injectors...)
 
 	app.Use(middleware.HealthCheck(middleware.HealthCheckOptions{
-		Service:        &service,
+		Service:        &ServiceName,
 		CheckFunctions: map[string]func() bool{},
 	}))
 

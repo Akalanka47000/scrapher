@@ -49,6 +49,7 @@ Go service for the Scrapher web application.
       - datasources - Contains the data source configuration
 
 - src
+   - app - The core fiber application which configures almost everything
    - config - Environmental configuration
    - global - Global packages
    - middleware - Custom request/response interceptors
@@ -59,7 +60,6 @@ Go service for the Scrapher web application.
                - dto - Data Transfer Objects
   - pkg - Custom extensions of external librarie which can be shared between modules
   - utils - Utility functions
-  - app.go - The fiber application which sets up almost everything
   - server.go - The main entry point of the application
 
 - test - Contains all test suites

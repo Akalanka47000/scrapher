@@ -7,6 +7,7 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2/log"
+	"github.com/samber/lo"
 	"github.com/spf13/viper"
 )
 
@@ -40,7 +41,10 @@ func Load() {
 		}
 	}
 
-	setDefaults()
+	lo.Try(func() error {
+		setDefaults()
+		return nil
+	})
 
 	if err := viper.Unmarshal(&Env); err != nil {
 		log.Fatal(err)

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"scrapher/src/app"
 	"scrapher/src/config"
 	"scrapher/src/global"
 	"syscall"
@@ -15,7 +16,7 @@ import (
 func main() {
 	config.Load()
 
-	app := bootstrapApp()
+	app := app.New()
 
 	go func() {
 		err := app.Listen(fmt.Sprintf(":%d", config.Env.Port))
