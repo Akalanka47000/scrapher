@@ -42,13 +42,13 @@ func AnalyseWebPage(targetUrl string) dto.AnalyseWebpageResult {
 
 						if err != nil {
 							result.InaccessibleLinkCount++
-						}
-
-						if external {
-							result.ExternalLinkCount++
 						} else {
-							result.InternalLinkCount++
-							href = baseURL.ResolveReference(lo.Ok(url.Parse(href))).String()
+							if external {
+								result.ExternalLinkCount++
+							} else {
+								result.InternalLinkCount++
+								href = baseURL.ResolveReference(lo.Ok(url.Parse(href))).String()
+							}
 						}
 
 						page := pp.MustGet(func() *rod.Page {

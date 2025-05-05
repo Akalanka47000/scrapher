@@ -1,4 +1,5 @@
 // This package creates a wrapper around the Colly collector to handle errors and logging.
+// Currently, it is not used in the codebase, but left here for future use if needed.
 package collyext
 
 import (

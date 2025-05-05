@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"net/url"
 	"strings"
 )
 
@@ -26,19 +25,9 @@ func ExtractHTMLVersion(html string) string {
 		return "HTML 4.0 Frameset"
 	case strings.Contains(lowercaseHTML, "html 3.2"):
 		return "HTML 3.2"
+	case strings.Contains(lowercaseHTML, "html 2.0"):
+		return "HTML 2.0"
 	default:
 		return "Unknown"
 	}
-}
-
-func IsExternalLink(link string, source url.URL) (bool, error) {
-	parsed, err := url.Parse(link)
-	if err != nil {
-		return false, err
-	}
-
-	if parsed.Host == source.Host || parsed.Host == "" {
-		return false, nil
-	}
-	return true, nil
 }

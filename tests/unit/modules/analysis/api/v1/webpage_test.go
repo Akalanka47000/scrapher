@@ -71,8 +71,8 @@ func TestAnalyseWebpage(t *testing.T) {
 
 			Convey("links", func() {
 				So(result.InternalLinkCount, ShouldEqual, 4)
-				So(result.ExternalLinkCount, ShouldEqual, 2)
-				So(result.InaccessibleLinkCount, ShouldEqual, 2)
+				So(result.ExternalLinkCount, ShouldEqual, 3)
+				So(result.InaccessibleLinkCount, ShouldEqual, 3)
 			})
 		})
 
