@@ -57,10 +57,6 @@ func AnalyseWebPage(targetUrl string) dto.AnalyseWebpageResult {
 
 						err = page.Navigate(href)
 
-						if err == nil {
-							err = page.WaitLoad()
-						}
-
 						if err != nil {
 							log.Warnw("Error visiting link", "link", href, "error", err)
 							result.InaccessibleLinkCount++
@@ -73,7 +69,7 @@ func AnalyseWebPage(targetUrl string) dto.AnalyseWebpageResult {
 				wg.Wait()
 			}
 
-			rodext.RunWithNewPagePool(3, analyzeLinks)
+			rodext.RunWithNewPagePool(5, analyzeLinks)
 
 			return result
 		},
