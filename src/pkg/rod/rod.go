@@ -25,9 +25,29 @@ func GetHeadlessBrowser() *rod.Browser {
 	}
 	u := launcher.New().Bin(config.Env.ChromePath).Headless(true).NoSandbox(true).MustLaunch()
 	browser := rod.New().ControlURL(u).MustConnect()
+
+	router := browser.HijackRequests()
+	router.MustAdd("*", func(ctx *rod.Hijack) {
+		switch ctx.Request.Type() {
+		case proto.NetworkResourceTypeImage,
+			proto.NetworkResourceTypeStylesheet,
+			proto.NetworkResourceTypeFont,
+			proto.NetworkResourceTypeMedia,
+			proto.NetworkResourceTypeTextTrack,
+			proto.NetworkResourceTypeManifest,
+			proto.NetworkResourceTypeEventSource,
+			proto.NetworkResourceTypeWebSocket:
+			ctx.Response.Fail(proto.NetworkErrorReasonBlockedByClient)
+		default:
+			ctx.ContinueRequest(&proto.FetchContinueRequest{})
+		}
+	})
+	go router.Run()
+
 	global.RegisterShutdownHook("rod-browser-close", func() {
 		if browser != nil {
 			browser.MustClose()
+			router.Stop()
 		}
 	})
 	return browser
