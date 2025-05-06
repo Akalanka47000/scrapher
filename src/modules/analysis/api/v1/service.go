@@ -27,46 +27,59 @@ func AnalyseWebPage(targetUrl string) dto.AnalyseWebpageResult {
 			result.ContainsLoginForm = p.ContainsLoginForm()
 
 			analyzeLinks := func(pp rod.Pool[rod.Page]) {
-				wg := sync.WaitGroup{}
-
 				baseURL := lo.FromPtr(lo.Ok(url.Parse(p.MustInfo().URL)))
+
+				panics := []any{}
+
+				onLink := func(a *rod.Element) {
+					href := lo.Ok(a.Property("href")).String()
+
+					external, err := utils.IsExternalLink(href, baseURL)
+
+					if err != nil {
+						result.InaccessibleLinkCount++
+					} else {
+						if external {
+							result.ExternalLinkCount++
+						} else {
+							result.InternalLinkCount++
+							href = baseURL.ResolveReference(lo.Ok(url.Parse(href))).String()
+						}
+					}
+
+					page := pp.MustGet(func() *rod.Page {
+						return b.MustPage("")
+					})
+
+					err = page.Navigate(href)
+
+					if err != nil {
+						log.Warnw("Error visiting link", "link", href, "error", err)
+						result.InaccessibleLinkCount++
+					}
+
+					pp.Put(page)
+				}
+
+				onPanic := func(err any) {
+					panics = append(panics, err)
+				}
+
+				wg := sync.WaitGroup{}
 
 				for _, a := range lo.Ok(p.Elements("a[href]:not([href^=\"mailto:\"]):not([href^=\"tel:\"])")) {
 					wg.Add(1)
-					go func() {
+					go utils.Protect(func() {
 						defer wg.Done()
-
-						href := lo.Ok(a.Property("href")).String()
-
-						external, err := utils.IsExternalLink(href, baseURL)
-
-						if err != nil {
-							result.InaccessibleLinkCount++
-						} else {
-							if external {
-								result.ExternalLinkCount++
-							} else {
-								result.InternalLinkCount++
-								href = baseURL.ResolveReference(lo.Ok(url.Parse(href))).String()
-							}
-						}
-
-						page := pp.MustGet(func() *rod.Page {
-							return b.MustPage("")
-						})
-
-						err = page.Navigate(href)
-
-						if err != nil {
-							log.Warnw("Error visiting link", "link", href, "error", err)
-							result.InaccessibleLinkCount++
-						}
-
-						pp.Put(page)
-					}()
+						onLink(a)
+					}, onPanic)
 				}
 
 				wg.Wait()
+
+				if len(panics) > 0 {
+					panic(panics[0])
+				}
 			}
 
 			rodext.RunWithNewPagePool(5, analyzeLinks)

@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"encoding/json"
 	"errors"
 	"runtime/debug"
 	"scrapher/src/global"
@@ -41,5 +42,5 @@ func StackTraceHandler(ctx *fiber.Ctx, err any) {
 	if _, ok := err.(*global.ExtendedFiberError); ok {
 		return
 	}
-	log.Errorw(lo.Cast[error](err).Error(), "stacktrace", string(debug.Stack()))
+	log.Errorw(string(lo.Ok(json.Marshal(err))), "stacktrace", string(debug.Stack()))
 }
